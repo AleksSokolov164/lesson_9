@@ -8,6 +8,8 @@ def number():
     result.sort()
     return result
 
+
+
 # n = 15
 # a = [random.randrange(1, 100) for i in range(n)]
 # a.sort()
