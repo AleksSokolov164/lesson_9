@@ -30,6 +30,7 @@ class Card():
                     str_2,
                     str_3]
         self.name = name
+
     def print_card(self):
 
         print('-'*10,self.name,'-'*(18-len(self.name)))
@@ -40,26 +41,50 @@ class Card():
         [print(self.card[2][i], ' ', end='') for i in range(9)]
         print(' ')
         print('-' * 30)
+    def bar_minus_card(self,bar):
+        if bar in self.card[0]:
+            str_1 = self.card[0]
+            index_bar = str_1.index(bar)
+            str_1.insert(index_bar, "X")
+        elif bar in self.card[1]:
+            str_2 = self.card[1]
+            index_bar = str_2.index(bar)
+            str_2.insert(index_bar, "X")
+        elif bar in self.card[2]:
+            str_3 = self.card[2]
+            index_bar = str_3.index(bar)
+            str_3.insert(index_bar, "X")
+        else:
+            print('Нет совпадений')
+
+
 bar = 0
 barrels = [i for i in range(1,91)]
-def bar_print(barrels,bar):
+def bar_print(barrels):
     import random
     result_list = random.sample(barrels, 1)  # 15
     result = result_list[0]
     barrels.remove(result)
     barMinus = len(barrels)
     print(f"Бочонок: {result}, осталось:{barMinus}")
-    bar = result
+    return result
 
 
 
-bar_print(barrels,bar)
 
 
-card_player = Card('Player')
-card_player.print_card()
-card_comp = Card('Comp')
-card_comp.print_card()
+
+card_player = Card('Player') #формируем карточку игрока
+card_comp = Card('Comp')# формируем карточку комп
+
+for i in range(90):
+    bar = bar_print(barrels) # Выбераем бочонок
+    print (bar)
+    card_player.print_card() # печатаем карточку
+    card_comp.print_card()# печатаем карточку
+    card_player.bar_minus_card(bar)# вычеркиваем если есть
+    card_comp.bar_minus_card(bar)# вычеркиваем если есть
+
 
 # def card(): # формируем список из 15 случайных чисел от 1 до 90
 #     import random
