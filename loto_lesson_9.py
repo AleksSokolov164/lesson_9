@@ -2,7 +2,7 @@ import random
 
 class Card():
 
-    def __init__(self,name,yes_no, break_game):
+    def __init__(self,name,yes_no, break_game, win):
         import random
         numbers = [i for i in range(1,91)] #cписок on 1 от 90
         result = random.sample(numbers, 15) # 15 - количество случайных элементов списка из случайных чисел
@@ -32,6 +32,7 @@ class Card():
         self.name = name
         self.yes_no = yes_no
         self.break_game = break_game
+        self.win = win
 
     def print_card(self):
 
@@ -46,10 +47,10 @@ class Card():
     def bar_yes_no(self,bar):
         if bar in self.card[0] or bar in self.card[1] or bar in self.card[2]:
             self.yes_no = True
-            print('да')
+
         else:
             self.yes_no = False
-            print('нет')
+
 
     def bar_minus_card(self,bar):
         if bar in self.card[0]:
@@ -58,18 +59,21 @@ class Card():
             str_1.insert(index_bar, "X")
             str_1.remove(bar)
             self.card[0] = str_1
+            self.win = self.win - 1
         elif bar in self.card[1]:
             str_2 = self.card[1]
             index_bar = str_2.index(bar)
             str_2.insert(index_bar, "X")
             str_2.remove(bar)
             self.card[1] = str_2
+            self.win = self.win - 1
         elif bar in self.card[2]:
             str_3 = self.card[2]
             index_bar = str_3.index(bar)
             str_3.insert(index_bar, "X")
             str_3.remove(bar)
             self.card[2] = str_3
+            self.win = self.win - 1
 
     def question_player (self,bar):
         print('Посмотрите на свою карточку. Нужно ли вычеркнуть выпавший номер или нет? ')
@@ -94,14 +98,10 @@ class Card():
                 self.break_game = 1
         else:
             print('Неверный пункт меню')
-    def player_or_comp (self):
 
-        if a_comp == 0 and a_player != 0:
-            print('Вы проиграли!')
-            self.break_game = 0
-        elif a_player == 0 and a_comp != 0:
-            print('Вы выиграли!')
-            self.break_game = 0
+
+
+
 
 def bar_print(barrels): #функция определения бочонка и его удаления из "мешка"
     import random
@@ -117,8 +117,8 @@ def bar_print(barrels): #функция определения бочонка и
 
 
 print('Сыграем в ЛОТО!?')
-card_player = Card('Игрок',True,1) #формируем карточку игрока
-card_comp = Card('Комп',True,1 ) # формируем карточку комп
+card_player = Card('Игрок',True,1,15) #формируем карточку игрока
+card_comp = Card('Комп',True,1,15 ) # формируем карточку комп
 
 
 bar = 0
@@ -129,8 +129,14 @@ for k in range(1,91):
     card_player.print_card() # печатаем карточку игрока
     card_comp.print_card()# печатаем карточку печатаем карточку комп
     card_comp.bar_minus_card(bar)# вычеркиваем если есть в карточке комп
-    card_player.question_player (bar) #задаем вопрос игроку и проверяем ответ
+    card_player.question_player (bar) #задаем вопрос игроку и проверяем ответ? если нужно - вычеркиваем
     if  card_player.break_game == 0:
+        break
+    if card_comp.win == 0:
+        print('Вы проиграли!')
+        break
+    elif card_player.win == 0:
+        print('Вы выиграли!')
         break
 
 
