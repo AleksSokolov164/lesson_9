@@ -2,7 +2,7 @@ import random
 
 class Card():
 
-    def __init__(self,name):
+    def __init__(self,name,yes_no, break_game):
         import random
         numbers = [i for i in range(1,91)] #cписок on 1 от 90
         result = random.sample(numbers, 15) # 15 - количество случайных элементов списка из случайных чисел
@@ -30,6 +30,8 @@ class Card():
                     str_2,
                     str_3]
         self.name = name
+        self.yes_no = yes_no
+        self.break_game = break_game
 
     def print_card(self):
 
@@ -41,130 +43,95 @@ class Card():
         [print(self.card[2][i], ' ', end='') for i in range(9)]
         print(' ')
         print('-' * 30)
+    def bar_yes_no(self,bar):
+        if bar in self.card[0] or bar in self.card[1] or bar in self.card[2]:
+            self.yes_no = True
+            print('да')
+        else:
+            self.yes_no = False
+            print('нет')
+
     def bar_minus_card(self,bar):
         if bar in self.card[0]:
             str_1 = self.card[0]
-            print('1',str_1)
             index_bar = str_1.index(bar)
-            print(index_bar)
             str_1.insert(index_bar, "X")
             str_1.remove(bar)
-            print('1-1',str_1)
             self.card[0] = str_1
         elif bar in self.card[1]:
             str_2 = self.card[1]
-            print('2', str_2)
             index_bar = str_2.index(bar)
-            print(index_bar)
             str_2.insert(index_bar, "X")
             str_2.remove(bar)
-            print('2-2', str_2)
             self.card[1] = str_2
         elif bar in self.card[2]:
             str_3 = self.card[2]
-            print('3', str_3)
             index_bar = str_3.index(bar)
-            print(index_bar)
             str_3.insert(index_bar, "X")
             str_3.remove(bar)
-            print('3-3', str_3)
             self.card[2] = str_3
+
+    def question_player (self,bar):
+        print('Посмотрите на свою карточку. Нужно ли вычеркнуть выпавший номер или нет? ')
+        print('1. зачеркнуть')
+        print('2. продолжить')
+        choice = input('Ваш выбор (1 или 2):')
+        card_player.bar_yes_no(bar)  # фиксируем есть ли номер на карточке игрока
+
+        if choice == '1':
+            if self.yes_no == False:
+                print('Вы проиграли!')
+                self.break_game = 0
+            else:
+                card_player.bar_minus_card(bar)  # вычеркиваем если есть
+                self.break_game = 1
+
+        elif choice == '2':
+            if self.yes_no == True:
+                print('Вы проиграли!')
+                self.break_game = 0
+            else:
+                self.break_game = 1
         else:
-            print('Нет совпадений')
+            print('Неверный пункт меню')
+    def player_or_comp (self):
 
+        if a_comp == 0 and a_player != 0:
+            print('Вы проиграли!')
+            self.break_game = 0
+        elif a_player == 0 and a_comp != 0:
+            print('Вы выиграли!')
+            self.break_game = 0
 
-bar = 0
-barrels = [i for i in range(1,91)]
-def bar_print(barrels):
+def bar_print(barrels): #функция определения бочонка и его удаления из "мешка"
     import random
     result_list = random.sample(barrels, 1)  # 15
     result = result_list[0]
     barrels.remove(result)
     barMinus = len(barrels)
-    print(f"Бочонок: {result}, осталось:{barMinus}")
+    print(f"Бочонок: {result}, осталось:{barMinus} бочонков")
     return result
 
 
 
 
 
+print('Сыграем в ЛОТО!?')
+card_player = Card('Игрок',True,1) #формируем карточку игрока
+card_comp = Card('Комп',True,1 ) # формируем карточку комп
 
-card_player = Card('Player') #формируем карточку игрока
-card_comp = Card('Comp')# формируем карточку комп
 
-for i in range(1,91):
+bar = 0
+barrels = [i for i in range(1,91)]
+
+for k in range(1,91):
     bar = bar_print(barrels) # Выбераем бочонок
-    print (bar)
-    card_player.print_card() # печатаем карточку
-    card_comp.print_card()# печатаем карточку
-    card_player.bar_minus_card(bar)# вычеркиваем если есть
-    card_comp.bar_minus_card(bar)# вычеркиваем если есть
+    card_player.print_card() # печатаем карточку игрока
+    card_comp.print_card()# печатаем карточку печатаем карточку комп
+    card_comp.bar_minus_card(bar)# вычеркиваем если есть в карточке комп
+    card_player.question_player (bar) #задаем вопрос игроку и проверяем ответ
+    if  card_player.break_game == 0:
+        break
 
 
-# def card(): # формируем список из 15 случайных чисел от 1 до 90
-#     import random
-#     numbers = [i for i in range(1,91)] #cписок on 1 от 90
-#     result = random.sample(numbers, 15) # 15 - количество случайных элементов
-#     result.sort()
-#     return result
-#
-#
-#
-# # n = 15
-# # a = [random.randrange(1, 100) for i in range(n)]
-# # a.sort()
-# # print(a)
-#
-# # Функция декоратор
-# # f - исходная фукнция
-# def add_separators(f):
-#     # inner - итоговая функция с новым поведение
-#     def inner(*args, **kwargs):
-#         # поведение до вызова
-#         print('*' * 60)
-#         result = f(*args, **kwargs)
-#         # поведение после вызова
-#         print('*' * 60)
-#         return result
-#
-#     # возвращается функция inner с новым поведением
-#     return inner
-# @add_separators
-# def print_card(numbers_card): # печатаем по 5 элементов списка
-#     [print(numbers_card[i],' ', end='') for i in range(5)]
-#     print(' ')
-#     [print(numbers_card[i], ' ', end='') for i in range(5,10)]
-#     print(' ')
-#     [print(numbers_card[i], ' ', end='') for i in range(10,15)]
-#     print(' ')
-#
-#
-# import random
-#
-# numbers_card = card()
-#
-# print(numbers_card) #выводим список полностью
-#
-# print_card(numbers_card)#выводим декорированный сверху и снизу список по 5 элементов в строке
-#
-# # выводим случайным образом список из первых 5 элементов и 4 пробелов
-#
-# card_str_1 = numbers_card[0:5]+([' ']*4)
-# random.shuffle(card_str_1)
-# print(card_str_1)
-#
-# str_2 = numbers_card[5:10]
-# card_str_2 = str_2+([' ']*4)
-# random.shuffle(card_str_2)
-# print(card_str_2)
-#
-# str_3 = numbers_card[10:15]
-# card_str_3 = str_3+([' ']*4)
-# random.shuffle(card_str_3)
-# print(card_str_3)
-#
-# for i in range(4):
-#     str_3.append(" ")
-#     mesto = random.randint(1, len(str_3))
-#     for i in range( len(str_3)-1,mesto,-1):
-#         str_3[i],str_3[i-1]=str_3[i-1],str_3[i]
+
