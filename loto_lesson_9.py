@@ -44,16 +44,31 @@ class Card():
     def bar_minus_card(self,bar):
         if bar in self.card[0]:
             str_1 = self.card[0]
+            print('1',str_1)
             index_bar = str_1.index(bar)
+            print(index_bar)
             str_1.insert(index_bar, "X")
+            str_1.remove(bar)
+            print('1-1',str_1)
+            self.card[0] = str_1
         elif bar in self.card[1]:
             str_2 = self.card[1]
+            print('2', str_2)
             index_bar = str_2.index(bar)
+            print(index_bar)
             str_2.insert(index_bar, "X")
+            str_2.remove(bar)
+            print('2-2', str_2)
+            self.card[1] = str_2
         elif bar in self.card[2]:
             str_3 = self.card[2]
+            print('3', str_3)
             index_bar = str_3.index(bar)
+            print(index_bar)
             str_3.insert(index_bar, "X")
+            str_3.remove(bar)
+            print('3-3', str_3)
+            self.card[2] = str_3
         else:
             print('Нет совпадений')
 
@@ -77,7 +92,7 @@ def bar_print(barrels):
 card_player = Card('Player') #формируем карточку игрока
 card_comp = Card('Comp')# формируем карточку комп
 
-for i in range(90):
+for i in range(1,91):
     bar = bar_print(barrels) # Выбераем бочонок
     print (bar)
     card_player.print_card() # печатаем карточку
