@@ -5,7 +5,7 @@ class Card():
     def __init__(self,name,yes_no, break_game, win):
         import random
         numbers = [i for i in range(1,91)] #cписок on 1 от 90
-        result = random.sample(numbers, 15) # 15 - количество случайных элементов списка из случайных чисел
+        result = random.sample(numbers, 15) # 15 - количество случайных чисел элементовиз  списка numbers
         result.sort() #сортируем по возрастанию
         str_1 = result[0:5] # формируем 1 строку карточки лото из 5 первых элементов списка и 4-х " " на случайных местах
         for i in range(4):
@@ -117,6 +117,11 @@ def bar_print(barrels): #функция определения бочонка и
 
 
 print('Сыграем в ЛОТО!?')
+number_players = int(input('Введите колличество игроков:'))
+players_typ = [i for i in range(1,number_players+1)]
+for i in range(len(players_typ)):
+    players_typ[i] = int(input(f'Введите тип {i+1}-го игрока: Компьютер -1 \ Человек-2):')):
+#выбрать тип игрока
 card_player = Card('Игрок',True,1,15) #формируем карточку игрока
 card_comp = Card('Комп',True,1,15 ) # формируем карточку комп
 
