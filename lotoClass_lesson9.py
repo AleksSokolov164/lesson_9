@@ -29,22 +29,25 @@ class Card():
         self.card = [str_1, # карточка
                     str_2,
                     str_3]
-        self.name = name # имя - тип игрока
+        self.name = name  # имя - тип игрока
         self.yes_no = yes_no
         self.break_game = break_game
-        self.win = win #  индикатор победы - у кого он первым станет = 0 вместо 15 (т.е. -1 при каждом вычеркивании) тот и победил
+        self.win = win  # индикатор победы - у кого он первым станет = 0 вместо 15 (т.е. -1 при каждом вычеркивании) тот и победил
 
+    def __str__(self):
+        string1_card = ('-'*10)+self.name+'-'*(18-len(self.name))
+        string2_card =''
+        for i in range(9):
+           string2_card = string2_card +str(self.card[0][i])+'  '
+        string3_card = ''
+        for i in range(9):
+            string3_card = string3_card +str(self.card[1][i])+'  '
+        string4_card = ''
+        for i in range(9):
+            string4_card = string4_card + str(self.card[2][i])+'  '
+        string5_card = '-' * 30
+        return f'{string1_card}\n{string2_card}\n{string3_card}\n{string4_card}\n{string5_card}'
 
-    def print_card(self): #  "печатаем" карточку на экран
-
-        print('-'*10,self.name,'-'*(18-len(self.name)))
-        [print(self.card[0][i], ' ', end='') for i in range(9)]
-        print(' ')
-        [print(self.card[1][i], ' ', end='') for i in range(9)]
-        print(' ')
-        [print(self.card[2][i], ' ', end='') for i in range(9)]
-        print(' ')
-        print('-' * 30)
 
     def bar_yes_no(self,bar): # фиксируем есть ли выпавший номер на карточке игрока
         if bar in self.card[0] or bar in self.card[1] or bar in self.card[2]:

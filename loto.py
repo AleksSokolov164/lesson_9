@@ -42,7 +42,7 @@ barrels = [i for i in range(1,91)] # формируем мешок бочонк�
 for k in range(1,91):
     bar = bar_print(barrels)  # Выбираем бочонок
     for i in range(len(players)):
-        players[i][1].print_card() # печатаем карточки игроков
+        print(players[i][1]) # печатаем карточки игроков
     for i in range(len(players)):
         if players[i][0] == 1:
             players[i][1].bar_minus_card(bar)# вычеркиваем если есть в карточке комп
