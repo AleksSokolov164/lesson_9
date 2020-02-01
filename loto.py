@@ -31,13 +31,10 @@ for i in range(len(players_typ)):
         players.append([players_typ[i],card_comp,numder_comp])
     else:
         number_homo = number_homo+1
-        card_player = Card(f'Игрок- {number_homo}',True,1,15) #формируем карточку игрока
+        card_player = Card(f'Игрок-{number_homo}',True,1,15) #формируем карточку игрока
         players.append([players_typ[i], card_player,number_homo])
 
-print(f'Карточки игровков равны? {players[0][1] == players[1][1]}') # сравниваем карточки игроков
-print(f'А  карточка игрока 1 = карточки игрока 1? {players[0][1] == players[0][1]}') # сравниваем картоку саму  с сабой
-print (f' Есть ли число33,23,44,45 в карточках игроков? {(33 in players[0][1]) or (33 in players[1][1]) or (23 in players[0][1]) or (23 in players[1][1]) }'
-       f'{(44 in players[0][1]) or (44 in players[1][1]) or (45 in players[0][1]) or (45 in players[1][1]) } ')
+
 stop_win = 0
 
 bar = 0

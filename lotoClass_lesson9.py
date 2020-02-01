@@ -54,12 +54,12 @@ class Card():
     def __contains__(self, item):
         return item in self.card[0] or item in self.card[1] or item in self.card[2]
 
-    def bar_yes_no(self,bar): # фиксируем есть ли выпавший номер на карточке игрока
-        # self.yes_no = bar in self.card
-        if bar in self.card[0] or bar in self.card[1] or bar in self.card[2]:
-            self.yes_no = True
-        else:
-            self.yes_no = False
+    # def bar_yes_no(self,bar): # фиксируем есть ли выпавший номер на карточке игрока
+    #     # self.yes_no = bar in self.card
+    #     if bar in self.card[0] or bar in self.card[1] or bar in self.card[2]:
+    #         self.yes_no = True
+    #     else:
+    #         self.yes_no = False
 
 
     def bar_minus_card(self,bar): # в карточке заменяем выпавшее число на Х
@@ -91,7 +91,9 @@ class Card():
         print('1. зачеркнуть')
         print('2. продолжить')
         choice = input('Ваш выбор (1 или 2):')
-        self.bar_yes_no(bar)  # фиксируем есть ли номер на карточке игрока
+        self.yes_no = bar in self  # фиксируем есть ли номер на карточке игрока
+
+        # self.bar_yes_no(bar)  # фиксируем есть ли номер на карточке игрока
 
         if choice == '1':
             if self.yes_no == False:
